@@ -1,0 +1,1 @@
+print('John','Muto','Japhet',sep='--') # John--Muto--Japhet
