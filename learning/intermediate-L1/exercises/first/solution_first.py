@@ -1,50 +1,188 @@
+"""
+6. Write a Python class Inventory with attributes 
+like item_id, item_name, stock_count, and price, 
+and methods like add_item, update_item, 
+and check_item_details.
+
+Use a dictionary to store the item details, 
+where the key is the item_id and the value is 
+a dictionary containing the item_name, stock_count, 
+and price."""
+
 class Inventory:
     def __init__(self):
-        self.inventory = {}
-    def add_item(self, item_id, item_name, stock_count, price):
-        self.inventory[item_id] = {"item_name": item_name, "stock_count": stock_count, "price": price}
+        self.item={}
 
-    def update_item(self, item_id, stock_count, price):
-        if item_id in self.inventory:
-            self.inventory[item_id]["stock_count"] = stock_count
-            self.inventory[item_id]["price"] = price
+    def add_item(self,id,name,stock_count,price):
+        self.item[id]={
+            'name':name,
+            'stock_count':stock_count,
+            'price':price
+        }
+
+    def show_details(self,id):
+        if id in self.item:
+            #return f"Product_Name:{self.item[id]['name']},Stock_count:{self.item[id]['stock_count']},Price: {self.item[id]['price']}"
+            print(self.item)
         else:
-            print("Item not found in inventory.")
+            return "Item Not Found"
+        
+    def update_item(self,id,name,stock_count,price):
+        if id in self.item:
+            self.item[id]['name']=name
+            self.item[id]['stock_count']=stock_count
+            self.item[id]['price']=price
 
-    def check_item_details(self, item_id):
-        if item_id in self.inventory:
-            item = self.inventory[item_id]
-            return f"Product Name: {item['item_name']}, Stock Count: {item['stock_count']}, Price: {item['price']}"
+            return self.item
+        
+Inventory1=Inventory()
+Inventory1.add_item('I1',name='Rice',stock_count='Account1',price='$23')
+Inventory1.add_item('I2',name='Maize',stock_count='Account2',price='$233')
+Inventory1.add_item('I3',name='Sugar',stock_count='Account3',price='$45')
+Inventory1.add_item('I4',name='Juice',stock_count='Account4',price='$93')
+
+#update
+Inventory1.update_item('I3','SugarCanes','Acc2','$7')
+print(Inventory1.show_details('I1'))
+
+"""Q3.
+
+3. Write a Python class Employee with attributes like emp_id, 
+emp_name, emp_salary, and emp_department and methods 
+like calculate_emp_salary, 
+emp_assign_department, and print_employee_details.
+"""
+
+class Employee:
+
+    def __init__(self):
+        self.employee={}
+
+    def add_employee(self,id,name,
+                     hoursWeek,
+                     salary,
+                     department):
+        
+        self.employee[id]={
+            "name":name,
+            "hoursWeek":hoursWeek,
+            "salary":salary,
+            "department":department
+        }
+
+  
+    
+    def employee_details(self,id):
+        if id in self.employee:
+            print(self.employee[id])
         else:
-            return "Item not found in inventory."
+            print("No such Employee")
+          
 
-inventory = Inventory()
+    def overtime_amount(self,id,hoursWeek,salary):
+        if id in self.employee:
+            if hoursWeek>50:
+                overtime=hoursWeek-50
+                Amount_overtime=(overtime*(salary/50))
 
-inventory.add_item("I001", "Laptop", 100, 500.00)
-inventory.add_item("I002", "Mobile", 110, 450.00)
-inventory.add_item("I003", "Desktop", 120, 500.00)
-inventory.add_item("I004", "Tablet", 90, 550.00)
-print("Item Details:")
-print(inventory.check_item_details("I001"))
-print(inventory.check_item_details("I002"))
-print(inventory.check_item_details("I003"))
-print(inventory.check_item_details("I004"))
-print("\nUpdate the price of item code - 'I001':")
-inventory.update_item("I001", 100, 505.00)
-print(inventory.check_item_details("I001"))
-print("\nUpdate the stock of item code - 'I003':")
-inventory.update_item("I003", 115, 500.00)
-print(inventory.check_item_details("I003"))
+                print("Amount Overtime: ",Amount_overtime)
+            else:
+                print("Your hours less than 50")
+        else:
+            print("Id not found")
+            
 
 
-"""Item Details:
-Product Name: Laptop, Stock Count: 100, Price: 500.0
-Product Name: Mobile, Stock Count: 110, Price: 450.0
-Product Name: Desktop, Stock Count: 120, Price: 500.0
-Product Name: Tablet, Stock Count: 90, Price: 550.0
+"""QN. Write a program to get all possible unique
+subsets from a set of distinct integers
+"""
 
-Update the price of item code - 'I001':
-Product Name: Laptop, Stock Count: 100, Price: 505.0
+class Python_Solution:
+    
+    def make_subsets(self,current,sets):
+        if sets:
+            return self.make_subsets(current,sets[1:]) + self.make_subsets(current+[sets[0]],sets[1:])
+        return [current]
+    def sub_sets(self,sets):
+        return self.make_subsets([],sorted(sets))
+    
 
-Update the stock of item code - 'I003':
-Product Name: Desktop, Stock Count: 115, Price: 500.0"""
+print(Python_Solution().sub_sets([1,2,3]))
+
+"""
+1. Write a Python class to find a pair of elements 
+(indices of the two numbers) 
+from a given array whose sum equals a specific target number.
+Note: There will be one solution 
+for each input and do not use the same element twice.
+Input: numbers= [10,20,10,40,50,60,70], 
+target=50
+Output: 3, 4
+"""
+# To do this, Take first number in list and add it to each number in list
+# to see if you hit the target. Repeat process for the second number, and so on.
+
+class Target_Addition_List:
+
+    def two_numbers(self,lis):
+        target=int(input("Target: "))
+
+        for number in lis:# each number
+            # consider each index in list 
+            for index in range(len(lis)):
+
+                if number + lis[index] == target:
+
+                    print(f"Indexes: [{lis.index(number)},{index}]")
+
+
+print(Target_Addition_List().two_numbers([4,6,5,10,-30,40]))
+
+
+"""
+2. Write a Python class to find the three elements 
+that sum to zero from a set of n real numbers.
+Input array : [-25, -10, -7, -3, 2, 4, 8, 10]
+Output : [[-10, 2, 8], [-7, -3, 10]]
+"""
+
+class ThreeSum:
+    @staticmethod
+    def find_three_sum(nums):
+        nums.sort()  # Sort the input array in ascending order
+        result = []
+
+        for i in range(len(nums) - 2):
+            # Skip duplicates to avoid duplicate triplets
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            left, right = i + 1, len(nums) - 1  # Set two pointers
+
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+
+                if total == 0:
+                    result.append([nums[i], nums[left], nums[right]])
+
+                    # Skip duplicates for left and right pointers
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+
+                    left += 1
+                    right -= 1
+                elif total < 0:
+                    left += 1
+                else:
+                    right -= 1
+
+        return result
+
+# Example usage:
+if __name__ == "__main__":
+    input_array = [-25, -10, -7, -3, 2, 4, 8, 10]
+    three_sum = ThreeSum()
+    result = three_sum.find_three_sum(input_array)
+    print(result)
